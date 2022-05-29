@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Daybook;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [Daybook::class,'index1'])->name('dashboard');
+
+    Route::post('/add-day-book', [Daybook::class,'index']);
+    
+});
 
 require __DIR__.'/auth.php';
+
